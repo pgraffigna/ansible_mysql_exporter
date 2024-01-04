@@ -1,0 +1,3 @@
+CREATE USER '{{ mysql_exporter_user }}'@'localhost' IDENTIFIED BY '{{ mysql_exporter_password }}' WITH MAX_USER_CONNECTIONS 2;
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO '{{ mysql_exporter_user }}'@'localhost';
+FLUSH PRIVILEGES;

@@ -1,0 +1,24 @@
+# descargar + instalar binario
+cd /tmp && wget -q https://github.com/prometheus/mysqld_exporter/releases/download/v0.15.1/mysqld_exporter-0.15.1.linux-amd64.tar.gz
+tar -zxvf mysqld_exporter-*-amd64.tar.gz
+sudo mv mysqld_exporter-*.linux-amd64/mysqld_exporter /usr/local/bin/
+sudo chmod +x /usr/local/bin/mysqld_exporter
+
+# crear configuracion para mysql_exporter
+sudo nano /etc/.mysqld_exporter.cnf
+
+# agregar usuario para prometheus en mysql/mariadb
+CREATE USER 'mysqld_exporter'@'localhost' IDENTIFIED BY 'Prom3th3us' WITH MAX_USER_CONNECTIONS 2;
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'mysqld_exporter'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+# configurando prometheus
+editar /etc/prometheus/prometheus.conf
+sudo systemctl restart prometheus.service
+
+# crear servicio para el exporter + activacion
+editar /etc/systemd/system/mysql_exporter.service
+sudo systemctl daemon-reload && sudo systemctl enable mysql_exporter --now
+
+

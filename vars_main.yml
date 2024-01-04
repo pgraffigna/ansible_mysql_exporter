@@ -1,0 +1,9 @@
+---
+# mariadb
+mysql_root_password: "mysql_root_password"
+mysql_db: "mysql_db"
+
+# mysql_exporter
+mysql_exporter_user: "mysqld_exporter"
+mysql_exporter_password: "Prom3th3us"
+mysql_exporter_url: "https://github.com/prometheus/mysqld_exporter/releases/download/v0.15.1/mysqld_exporter-0.15.1.linux-amd64.tar.gz"

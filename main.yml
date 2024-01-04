@@ -1,0 +1,9 @@
+---
+- hosts: control
+  become: true
+  gather_facts: true
+
+  roles:
+    - mariadb
+    - mysql_exporter
+    
