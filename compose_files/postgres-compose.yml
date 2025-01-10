@@ -1,0 +1,47 @@
+version: '3.7'
+networks:
+  db_net:
+    name: db_net
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres_dumper
+    networks:
+      - db_net
+    restart: always
+    shm_size: 128mb
+    environment:
+      DATABASE_HOST: 127.0.0.1
+      POSTGRES_DB: test_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: test_root_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_gui
+    networks:
+      - db_net
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: administradores@local.lab
+      PGADMIN_DEFAULT_PASSWORD: test_pgadmin_password
+    ports:
+      - "8008:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    name: postgres_data
+    driver: local
+  pgadmin_data:
+    name: pgadmin_data
+    driver: local

@@ -1,5 +1,5 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
-IMAGEN = "generic/ubuntu2004"
+IMAGEN = "generic/ubuntu2204"
 HOSTNAME = "monitoring.home.lab"
 NODOS = 2
 
@@ -27,6 +27,7 @@ Vagrant.configure("2") do |config|
         v.memory = 1024
         v.cpus = 2
         v.graphics_type = "none"
+        v.disk_bus = 'virtio'
       end
     end
   end

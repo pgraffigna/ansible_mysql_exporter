@@ -14,14 +14,14 @@
     - { src: files/mysqld_exporter.cnf.j2, dest: /etc/.mysqld_exporter.cnf }
     - { src: files/mysql_exporter.service, dest: /etc/systemd/system/mysql_exporter.service }
     - { src: files/sql_exporter.sql.j2, dest: /tmp/sql_exporter.sql }
-  
+
 - name: Agrega usuario "{{ mysql_exporter_user }}"
   mysql_db:
     state: import
     name: exporter_db
     target: /tmp/sql_exporter.sql
     login_user: root
-    login_password: "{{ mysql_root_password }}"  
+    login_password: "{{ mysql_root_password }}"
 
 - name: Descarga + descomprime mysql_exporter
   ansible.builtin.unarchive:
